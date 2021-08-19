@@ -1,9 +1,6 @@
 package com.hxk.community.controller;
 
-import com.hxk.community.dto.AccessTokenDTO;
-import com.hxk.community.dto.AccessTokenDTOGitee;
-import com.hxk.community.dto.GiteeUser;
-import com.hxk.community.dto.GithubUser;
+import com.hxk.community.dto.*;
 import com.hxk.community.provider.GiteeProvider;
 import com.hxk.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +55,8 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(github_Client_secret);
         accessTokenDTO.setRedirect_uri(github_Redirect_uri);
         String token = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser githubUser = githubProvider.getUser(token);
+        GitUser gitUser = githubProvider.getUser(token);
+        System.out.println(gitUser.toString());
         //登陆成功后返回首页面
         return "index";
     }
@@ -72,8 +70,8 @@ public class AuthorizeController {
         accessTokenDTOGitee.setClient_id(gitee_Client_id);
         accessTokenDTOGitee.setGrant_type(gitee_Grant_type);
         String token = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
-        GiteeUser giteeUser = giteeProvider.getGiteeUser(token);
-        System.out.println(giteeUser.toString());
+        GitUser gitUser = giteeProvider.getGiteeUser(token);
+        System.out.println(gitUser.toString());
         return "index";
     }
 }
