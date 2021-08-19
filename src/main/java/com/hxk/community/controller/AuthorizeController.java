@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -57,23 +59,25 @@ public class AuthorizeController {
 
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
-                                   HttpServletRequest httpServletRequest) {
+                                   HttpServletRequest httpServletRequest,
+                                   HttpServletResponse httpServletResponse) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setClient_id(github_Client_id);
         accessTokenDTO.setClient_secret(github_Client_secret);
         accessTokenDTO.setRedirect_uri(github_Redirect_uri);
-        String token = githubProvider.getAccessToken(accessTokenDTO);
-        GitUser gitUser = githubProvider.getUser(token);
+        String accessTokentoken = githubProvider.getAccessToken(accessTokenDTO);
+        GitUser gitUser = githubProvider.getUser(accessTokentoken);
         if (gitUser != null && gitUser.getName() != null) {
             User user = new User();
             user.setAccount_id(String.valueOf(gitUser.getId()));
             user.setAccount_name(gitUser.getName());
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             userMapper.insertUser(user);
-           httpServletRequest.getSession().setAttribute("user",gitUser);
+            httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
             return "redirect:/";
@@ -82,24 +86,26 @@ public class AuthorizeController {
 
     @RequestMapping("callbackToGitee")
     public String callbackToGitee(@RequestParam(name = "code") String code,
-                                  HttpServletRequest httpServletRequest) {
+                                  HttpServletRequest httpServletRequest,
+                                  HttpServletResponse httpServletResponse) {
         AccessTokenDTOGitee accessTokenDTOGitee = new AccessTokenDTOGitee();
         accessTokenDTOGitee.setRedirect_uri(gitee_Redirect_uri);
         accessTokenDTOGitee.setCode(code);
         accessTokenDTOGitee.setClient_secret(gitee_Client_secret);
         accessTokenDTOGitee.setClient_id(gitee_Client_id);
         accessTokenDTOGitee.setGrant_type(gitee_Grant_type);
-        String token = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
-        GitUser gitUser = giteeProvider.getGiteeUser(token);
+        String accessToken = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
+        GitUser gitUser = giteeProvider.getGiteeUser(accessToken);
         if (gitUser != null && gitUser.getName() != null) {
             User user = new User();
             user.setAccount_id(String.valueOf(gitUser.getId()));
             user.setAccount_name(gitUser.getName());
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             userMapper.insertUser(user);
-            httpServletRequest.getSession().setAttribute("user",gitUser);
+            httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
             return "redirect:/";
