@@ -1,6 +1,8 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dto.*;
+import com.hxk.community.mapper.UserMapper;
+import com.hxk.community.model.User;
 import com.hxk.community.provider.GiteeProvider;
 import com.hxk.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @ClassName AuthorizeController
@@ -49,6 +52,9 @@ public class AuthorizeController {
     @Autowired
     private GiteeProvider giteeProvider;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
                                    HttpServletRequest httpServletRequest) {
@@ -60,6 +66,13 @@ public class AuthorizeController {
         String token = githubProvider.getAccessToken(accessTokenDTO);
         GitUser gitUser = githubProvider.getUser(token);
         if (gitUser != null && gitUser.getName() != null) {
+            User user = new User();
+            user.setAccount_id(String.valueOf(gitUser.getId()));
+            user.setAccount_name(gitUser.getName());
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmt_create(System.currentTimeMillis());
+            user.setGmt_modify(user.getGmt_create());
+            userMapper.insertUser(user);
            httpServletRequest.getSession().setAttribute("user",gitUser);
             return "redirect:/";
         } else {
@@ -79,6 +92,13 @@ public class AuthorizeController {
         String token = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
         GitUser gitUser = giteeProvider.getGiteeUser(token);
         if (gitUser != null && gitUser.getName() != null) {
+            User user = new User();
+            user.setAccount_id(String.valueOf(gitUser.getId()));
+            user.setAccount_name(gitUser.getName());
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmt_create(System.currentTimeMillis());
+            user.setGmt_modify(user.getGmt_create());
+            userMapper.insertUser(user);
             httpServletRequest.getSession().setAttribute("user",gitUser);
             return "redirect:/";
         } else {

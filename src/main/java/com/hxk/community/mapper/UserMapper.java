@@ -1,0 +1,16 @@
+package com.hxk.community.mapper;
+
+
+import com.hxk.community.model.User;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+@Mapper
+public interface UserMapper {
+
+    @Insert("insert into user (account_id, account_name, token, gmt_create, gmt_modify) values (#{account_id}," +
+            "#{account_name},#{token},#{gmt_create},#{gmt_modify})")
+    public void insertUser(User user);
+}
