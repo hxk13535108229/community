@@ -4,6 +4,4 @@
 
 [spring文档](https://spring.io/guides)
 
-[百度](www.baidu.com)
-
 [Bootstrap中文文档](https://v3.bootcss.com/)
