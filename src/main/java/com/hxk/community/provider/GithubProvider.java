@@ -18,8 +18,8 @@ import java.io.IOException;
  **/
 @Component
 public class GithubProvider {
-    public String getAccessToken(AccessTokenDTO accessTokenDTO){
-       MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+    public String getAccessToken(AccessTokenDTO accessTokenDTO) {
+        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));
@@ -39,20 +39,20 @@ public class GithubProvider {
         return null;
     }
 
-   public GitUser getUser(String accessToken){
-       OkHttpClient client = new OkHttpClient();
-       Request request = new Request.Builder()
-               .url("https://api.github.com/user")
-               .header("Authorization", "token "+accessToken)
-               .build();
+    public GitUser getUser(String accessToken) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://api.github.com/user")
+                .header("Authorization", "token " + accessToken)
+                .build();
 
-       try (Response response = client.newCall(request).execute()) {
-           String string = response.body().string();
-           GitUser gitUser = JSON.parseObject(string, GitUser.class);
-           return gitUser;
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-       return null;
-   }
+        try (Response response = client.newCall(request).execute()) {
+            String string = response.body().string();
+            GitUser gitUser = JSON.parseObject(string, GitUser.class);
+            return gitUser;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

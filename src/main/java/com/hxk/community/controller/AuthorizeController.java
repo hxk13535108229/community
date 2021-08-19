@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @ClassName AuthorizeController
  * @Description TODO
@@ -48,7 +51,7 @@ public class AuthorizeController {
 
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state")String state){
+                                   HttpServletRequest httpServletRequest) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setClient_id(github_Client_id);
@@ -56,13 +59,17 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(github_Redirect_uri);
         String token = githubProvider.getAccessToken(accessTokenDTO);
         GitUser gitUser = githubProvider.getUser(token);
-        System.out.println(gitUser.toString());
-        //登陆成功后返回首页面
-        return "index";
+        if (gitUser != null && gitUser.getName() != null) {
+           httpServletRequest.getSession().setAttribute("user",gitUser);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @RequestMapping("callbackToGitee")
-    public String callbackToGitee(@RequestParam(name = "code")String code){
+    public String callbackToGitee(@RequestParam(name = "code") String code,
+                                  HttpServletRequest httpServletRequest) {
         AccessTokenDTOGitee accessTokenDTOGitee = new AccessTokenDTOGitee();
         accessTokenDTOGitee.setRedirect_uri(gitee_Redirect_uri);
         accessTokenDTOGitee.setCode(code);
@@ -71,7 +78,11 @@ public class AuthorizeController {
         accessTokenDTOGitee.setGrant_type(gitee_Grant_type);
         String token = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
         GitUser gitUser = giteeProvider.getGiteeUser(token);
-        System.out.println(gitUser.toString());
-        return "index";
+        if (gitUser != null && gitUser.getName() != null) {
+            httpServletRequest.getSession().setAttribute("user",gitUser);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
     }
 }
