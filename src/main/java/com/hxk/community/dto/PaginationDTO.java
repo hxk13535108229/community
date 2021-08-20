@@ -19,18 +19,26 @@ public class PaginationDTO {
     private boolean showNextPage;//下一页
     private boolean hasFirstPage;//第一页
     private boolean hasLastPage;//最后一页
-
+    private Integer totalPages;//总页数
     private Integer currentPage;//当前页
-    private List<Integer> pages = new ArrayList<>();
+    private List<Integer> pages = new ArrayList<>();//页列表
 
     public void setPaginationDTO(Integer totalCount, Integer pageNum, Integer pageSize) {
-        Integer totalPages = 0; //总页数
-        if (totalPages % pageSize == 0) {
-            totalPages = totalPages / pageSize;
+        if (totalCount % pageSize == 0) {
+            totalPages = totalCount / pageSize;
         } else {
-            totalPages = totalPages / pageSize + 1;
+            totalPages = totalCount / pageSize + 1;
         }
-
+        this.currentPage=pageNum;
+        pages.add(currentPage);
+        for (int i = 1; i <=3 ; i++) {
+            if(currentPage-i>0){
+                pages.add(0, currentPage-i);
+            }
+             if(currentPage+i<=totalPages){
+                pages.add(currentPage+i);
+            }
+        }
         //是否展示上一页
         if (currentPage == 1) {
             showPrePage = false;
@@ -56,7 +64,5 @@ public class PaginationDTO {
         }else {
             hasLastPage=true;
         }
-
-
     }
 }

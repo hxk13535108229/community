@@ -40,8 +40,8 @@ public class IndexController {
     @RequestMapping("/")
     public String goIndex(HttpServletRequest httpServletRequest,
                           Model model,
-                          @RequestParam(name = "pageNum", defaultValue = "2") Integer pageNum,
-                          @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize
+                          @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
+                          @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize
                           ) {
 
         Cookie[] cookies = httpServletRequest.getCookies();
