@@ -1,5 +1,6 @@
 package com.hxk.community.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.hxk.community.dto.QuestionDTO;
 import com.hxk.community.mapper.QuestionMapper;
 import com.hxk.community.mapper.UserMapper;
@@ -47,7 +48,9 @@ public class IndexController {
                 }
             }
         }
+        PageHelper.startPage(1,5);
         List<QuestionDTO> questionDTOList = questionService.list();
+        System.out.println(questionDTOList.toString());
         model.addAttribute("questionList",questionDTOList);
         return "index";
     }

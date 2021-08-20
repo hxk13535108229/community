@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>hxkCommunity</title>
+    <link rel="stylesheet" href="css/community.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
           integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -23,7 +24,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container-fluid main">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -71,7 +72,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<div class="container-fluid">
+<div class="container-fluid main body">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
             <h2><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
@@ -91,7 +92,7 @@
                 </div>
 
                 <div class="alert alert-danger" th:if="${error}!=null" th:text="${error}"></div>
-                <button type="submit" class="btn btn-success">确认发布</button>
+                <button type="submit" class="btn btn-success btn_publish">确认发布</button>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
