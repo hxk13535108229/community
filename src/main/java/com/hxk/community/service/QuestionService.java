@@ -1,5 +1,6 @@
 package com.hxk.community.service;
 
+import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.dto.QuestionDTO;
 import com.hxk.community.mapper.QuestionMapper;
 import com.hxk.community.mapper.UserMapper;
@@ -28,17 +29,22 @@ public class QuestionService {
     private UserMapper userMapper;
 
 
-    public List<QuestionDTO> list() {
-        List<Question> questions = questionMapper.list();
+    public PaginationDTO list(Integer pageNum, Integer pageSize) {
+
+        Integer currentPage=pageSize*(pageNum-1);
+        List<Question> questions = questionMapper.list(currentPage,pageSize);
+        PaginationDTO paginationDTO = new PaginationDTO();
         List<QuestionDTO> questionDTOList=new ArrayList<>();
         for (Question question : questions) {
-
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//拷贝类
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        paginationDTO.setQuestionDTOList(questionDTOList);
+        Integer totalCount=questionMapper.count();
+        paginationDTO.setPaginationDTO(totalCount,pageNum,pageSize);
+        return paginationDTO;
     }
 }
