@@ -3,7 +3,6 @@ package com.hxk.community.provider;
 import com.alibaba.fastjson.JSON;
 import com.hxk.community.dto.AccessTokenDTO;
 import com.hxk.community.dto.GitUser;
-import com.hxk.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

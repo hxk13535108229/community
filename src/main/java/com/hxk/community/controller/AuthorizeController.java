@@ -76,6 +76,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
+            user.setAvatar_url(gitUser.getAvatar_url());
             userMapper.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
@@ -104,6 +105,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
+            user.setAvatar_url(gitUser.getAvatar_url());
             userMapper.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
