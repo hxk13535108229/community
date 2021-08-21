@@ -1,27 +1,26 @@
 package com.hxk.community.controller;
 
-import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.entity.User;
 import com.hxk.community.service.QuestionService;
 import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @ClassName IndexController
- * @Description 首页
+ * @ClassName ProfileController
+ * @Description TODO
  * @Author OvO
- * @Date 2021-08-19 15:09
+ * @Date 2021-08-21 23:59
  * @Version 1.0
  **/
 @Controller
-public class IndexController {
+public class ProfileController {
 
     @Autowired
     private UserService userService;
@@ -29,29 +28,31 @@ public class IndexController {
     @Autowired
     private QuestionService questionService;
 
-    @RequestMapping("/")
-    public String goIndex(HttpServletRequest httpServletRequest,
-                          Model model,
-                          @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
-                          @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize
-    ) {
-
+    @RequestMapping("/profile/{action}")
+    public String profile(@PathVariable(name = "action")String action,
+                          HttpServletRequest httpServletRequest,
+                          Model model){
+        User user = null;
         Cookie[] cookies = httpServletRequest.getCookies();
-        if (cookies != null && cookies.length != 0) {
+        if(cookies!=null&&cookies.length!=0) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    User user = userService.findByToken(token);
+                    user = userService.findByToken(token);
                     if (user != null) {
-                        //设置用户session
                         httpServletRequest.getSession().setAttribute("user", user);
-                        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
-                        model.addAttribute("pagination", paginationDTO);
                     }
                     break;
                 }
             }
         }
-        return "index";
+       if("questions".equals(action)){
+           model.addAttribute("section", "questions");
+           model.addAttribute("sectionName", "我的提问");
+       }else if("replies".equals(action)){
+           model.addAttribute("section", "replies");
+           model.addAttribute("sectionName", "最新回复");
+       }
+        return "profile";
     }
 }
