@@ -1,10 +1,10 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dto.*;
-import com.hxk.community.dao.UserMapper;
 import com.hxk.community.entity.User;
 import com.hxk.community.provider.GiteeProvider;
 import com.hxk.community.provider.GithubProvider;
+import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -54,7 +54,7 @@ public class AuthorizeController {
     private GiteeProvider giteeProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
@@ -76,7 +76,7 @@ public class AuthorizeController {
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             user.setAvatar_url(gitUser.getAvatar_url());
-            userMapper.insertUser(user);
+            userService.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
@@ -105,7 +105,7 @@ public class AuthorizeController {
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             user.setAvatar_url(gitUser.getAvatar_url());
-            userMapper.insertUser(user);
+            userService.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {

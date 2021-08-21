@@ -30,8 +30,8 @@ public class QuestionService {
 
 
     public PaginationDTO list(Integer pageNum, Integer pageSize,String token) {
+        
 //逻辑 查出所有数据  匹配用户id查出对应的问题  统计问题总数  匹配成功分页显示
-
         Integer totalCount=questionMapper.count();
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPages;

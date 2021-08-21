@@ -1,9 +1,9 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dao.QuestionMapper;
-import com.hxk.community.dao.UserMapper;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
+import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ public class PublishController {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/publish")
     public String publish() {
@@ -68,7 +68,7 @@ public class PublishController {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
+                    user = userService.findByToken(token);
                     if (user != null) {
                         httpServletRequest.getSession().setAttribute("user", user);
                     }

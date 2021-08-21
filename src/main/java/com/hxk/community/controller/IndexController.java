@@ -1,9 +1,9 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dto.PaginationDTO;
-import com.hxk.community.dao.UserMapper;
 import com.hxk.community.entity.User;
 import com.hxk.community.service.QuestionService;
+import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +22,9 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @Controller
 public class IndexController {
+
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Autowired
     private QuestionService questionService;
@@ -40,7 +41,7 @@ public class IndexController {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
+                    User user = userService.findByToken(token);
                     if (user != null) {
                         httpServletRequest.getSession().setAttribute("user", user);
                         PaginationDTO paginationDTO = questionService.list(pageNum, pageSize,token);
