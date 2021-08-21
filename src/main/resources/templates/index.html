@@ -95,26 +95,26 @@
                     </span>
                 </div>
             </div>
-            <nav  aria-label="Page navigation">
+            <nav  aria-label="Page navigation" th:if="${pagination.getTotalPages()!=0}">
                 <ul class="pagination">
                     <li>
-                        <a th:if="${pagination.getCurrentPage()!=1}" href="/?pageNum=1" aria-label="FirstPage">
+                        <a th:if="${pagination.hasFirstPage}" href="/?pageNum=1" aria-label="FirstPage">
                             <span aria-hidden="true">&laquo;&laquo;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:if="${pagination.getCurrentPage()!=1}" th:href="@{/(pageNum=${pagination.getCurrentPage()-1})}" aria-label="Previous">
+                        <a th:if="${pagination.showPrePage}" th:href="@{/(pageNum=${pagination.getCurrentPage()-1})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:class="${pageNum==pagination.getCurrentPage()}?'active':''" th:each="pageNum:${pagination.pages}"><a th:href="@{/(pageNum=${pageNum})}"  th:text="${pageNum}"></a></li>
                     <li>
-                        <a th:if="${pagination.getCurrentPage()!=pagination.getTotalPages()}" th:href="@{/(pageNum=${pagination.getCurrentPage()+1})}" aria-label="Next">
+                        <a th:if="${pagination.showNextPage}" th:href="@{/(pageNum=${pagination.getCurrentPage()+1})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:if="${pagination.getCurrentPage()!=pagination.getTotalPages()}"  th:href="@{/(pageNum=${pagination.getTotalPages()})}" aria-label="EndPage">
+                        <a th:if="${pagination.hasLastPage}"  th:href="@{/(pageNum=${pagination.getTotalPages()})}" aria-label="EndPage">
                             <span aria-hidden="true">&raquo;&raquo;</span>
                         </a>
                     </li>

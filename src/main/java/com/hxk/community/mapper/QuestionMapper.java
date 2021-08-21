@@ -14,8 +14,8 @@ public interface QuestionMapper {
     @Select("select count(1) from question")
      Integer count();
 
-    @Insert("insert into question (title, description, gmt_create, gmt_modify, creator,tag)" +
-            " values (#{title},#{description},#{gmt_create},#{gmt_modify},#{creator},#{tag})")
+    @Insert("insert into question (title, description, gmt_create, gmt_modify,account_id,tag)" +
+            " values (#{title},#{description},#{gmt_create},#{gmt_modify},#{account_id},#{tag})")
     public void create(Question question);
 
     @Select("select * from question limit #{currentPage},#{pageSize}")

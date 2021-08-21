@@ -17,7 +17,7 @@ public class Question {
     private String tag;             //标签
     private Long gmt_create;        //创建时间
     private Long gmt_modify;        //修改时间
-    private Integer creator;        //创建者id
+    private String  account_id;      //创建者id
     private Integer comment_count;  //评论数
     private Integer view_count;     //观看数
     private Integer like_count;     //点赞数

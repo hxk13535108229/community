@@ -30,14 +30,11 @@ public class QuestionService {
 
 
     public PaginationDTO list(Integer pageNum, Integer pageSize) {
-
+//逻辑 查出所有数据  匹配用户id查出对应的问题  统计问题总数  匹配成功分页显示
 
         Integer totalCount=questionMapper.count();
         PaginationDTO paginationDTO = new PaginationDTO();
-        if(pageNum<=0){
-            pageNum=1;
-        }
-        Integer totalPages=0;
+        Integer totalPages;
         if(totalCount%pageSize==0){
             totalPages=totalCount/pageSize;
         }else {
@@ -46,12 +43,15 @@ public class QuestionService {
         if(pageNum>=totalPages){
             pageNum=totalPages;
         }
+        if(pageNum<=0){
+            pageNum=1;
+        }
         paginationDTO.setPaginationDTO(totalCount,pageNum,pageSize);
         Integer currentPage=pageSize*(pageNum-1);
         List<Question> questions = questionMapper.list(currentPage,pageSize);
         List<QuestionDTO> questionDTOList=new ArrayList<>();
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.findById(question.getAccount_id());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//拷贝类
             questionDTO.setUser(user);
