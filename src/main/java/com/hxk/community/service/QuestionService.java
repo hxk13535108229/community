@@ -60,9 +60,9 @@ public class QuestionService {
         paginationDTO.setFirstPage(pageInfo.isIsFirstPage());
         paginationDTO.setLastPage(pageInfo.isIsLastPage());
         paginationDTO.setTotalPages(pageInfo.getPages());
-        QuestionDTO questionDTO = new QuestionDTO();
         List<QuestionDTO> questionDTOList =new ArrayList<>();
         for (Question question : questions) {
+            QuestionDTO questionDTO = new QuestionDTO();//在循环外面的话用add方法会覆盖前面的数据
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
