@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @ClassName PaginationDTO
- * @Description TODO
+ * @Description 问题分页页面
  * @Author OvO
  * @Date 2021-08-20 17:05
  * @Version 1.0
@@ -36,46 +36,4 @@ public class PaginationDTO {
         return pages;
     }
 
-    public void setPaginationDTO(Integer totalCount, Integer pageNum, Integer pageSize) {
-        if (totalCount % pageSize == 0) {
-            totalPages = totalCount / pageSize;
-        } else {
-            totalPages = totalCount / pageSize + 1;
-        }
-        this.currentPage=pageNum;
-        pages.add(currentPage);
-        for (int i = 1; i <=3 ; i++) {
-            if(currentPage-i>0){
-                pages.add(0, currentPage-i);
-            }
-             if(currentPage+i<=totalPages){
-                pages.add(currentPage+i);
-            }
-        }
-        //是否展示上一页
-        if (currentPage == 1) {
-            hasPreviousPage = false;
-        } else {
-            hasPreviousPage = true;
-        }
-
-        //是否展示下一页
-        if (currentPage == totalPages) {
-            hasNextPage = false;
-        } else {
-            hasNextPage = true;
-        }
-
-        //是否展示首页和尾页
-        if(pages.contains(1)){
-            isFirstPage=false;
-        }else {
-            isFirstPage=true;
-        }
-        if(pages.contains(totalPages)){
-            isLastPage=false;
-        }else {
-            isLastPage=true;
-        }
-    }
 }

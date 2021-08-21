@@ -10,7 +10,7 @@ import lombok.Data;
  * @Version 1.0
  **/
 @Data
-public class GiteeAccessToken {
+public class GiteeAccessTokenDTO {
     private String access_token;
     private String token_type;
     private Long expires_in;

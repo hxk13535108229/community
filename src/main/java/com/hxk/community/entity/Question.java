@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @ClassName Question
- * @Description TODO
+ * @Description 问题实体类
  * @Author OvO
  * @Date 2021-08-20 1:56
  * @Version 1.0

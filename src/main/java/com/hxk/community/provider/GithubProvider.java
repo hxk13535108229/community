@@ -2,7 +2,7 @@ package com.hxk.community.provider;
 
 import com.alibaba.fastjson.JSON;
 import com.hxk.community.dto.AccessTokenDTO;
-import com.hxk.community.dto.GitUser;
+import com.hxk.community.dto.GitUserDTO;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,7 @@ public class GithubProvider {
         return null;
     }
 
-    public GitUser getUser(String accessToken) {
+    public GitUserDTO getUser(String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
@@ -47,8 +47,8 @@ public class GithubProvider {
 
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-            GitUser gitUser = JSON.parseObject(string, GitUser.class);
-            return gitUser;
+            GitUserDTO gitUserDTO = JSON.parseObject(string, GitUserDTO.class);
+            return gitUserDTO;
         } catch (IOException e) {
             e.printStackTrace();
         }

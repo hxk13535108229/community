@@ -18,7 +18,7 @@ import java.util.UUID;
 
 /**
  * @ClassName AuthorizeController
- * @Description TODO
+ * @Description 用户登录
  * @Author OvO
  * @Date 2021-08-19 16:59
  * @Version 1.0
@@ -66,16 +66,16 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(github_Client_secret);
         accessTokenDTO.setRedirect_uri(github_Redirect_uri);
         String accessTokentoken = githubProvider.getAccessToken(accessTokenDTO);
-        GitUser gitUser = githubProvider.getUser(accessTokentoken);
-        if (gitUser != null && gitUser.getName() != null) {
+        GitUserDTO gitUserDTO = githubProvider.getUser(accessTokentoken);
+        if (gitUserDTO != null && gitUserDTO.getName() != null) {
             User user = new User();
-            user.setAccount_id(String.valueOf(gitUser.getId()));
-            user.setAccount_name(gitUser.getName());
+            user.setAccount_id(String.valueOf(gitUserDTO.getId()));
+            user.setAccount_name(gitUserDTO.getName());
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
-            user.setAvatar_url(gitUser.getAvatar_url());
+            user.setAvatar_url(gitUserDTO.getAvatar_url());
             userService.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
@@ -95,16 +95,16 @@ public class AuthorizeController {
         accessTokenDTOGitee.setClient_id(gitee_Client_id);
         accessTokenDTOGitee.setGrant_type(gitee_Grant_type);
         String accessToken = giteeProvider.getGiteeAccessToken(accessTokenDTOGitee);
-        GitUser gitUser = giteeProvider.getGiteeUser(accessToken);
-        if (gitUser != null && gitUser.getName() != null) {
+        GitUserDTO gitUserDTO = giteeProvider.getGiteeUser(accessToken);
+        if (gitUserDTO != null && gitUserDTO.getName() != null) {
             User user = new User();
-            user.setAccount_id(String.valueOf(gitUser.getId()));
-            user.setAccount_name(gitUser.getName());
+            user.setAccount_id(String.valueOf(gitUserDTO.getId()));
+            user.setAccount_name(gitUserDTO.getName());
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
-            user.setAvatar_url(gitUser.getAvatar_url());
+            user.setAvatar_url(gitUserDTO.getAvatar_url());
             userService.insertUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";

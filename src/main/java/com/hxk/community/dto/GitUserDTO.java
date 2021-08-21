@@ -10,7 +10,7 @@ import lombok.Data;
  * @Version 1.0
  **/
 @Data
-public class GitUser {
+public class GitUserDTO {
     private long id;
     private String name;
     private String avatar_url;
