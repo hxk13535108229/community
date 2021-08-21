@@ -1,5 +1,6 @@
 package com.hxk.community.controller;
 
+import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.entity.User;
 import com.hxk.community.service.QuestionService;
 import com.hxk.community.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +33,11 @@ public class ProfileController {
     @RequestMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
                           HttpServletRequest httpServletRequest,
-                          Model model){
+                          Model model,
+                          @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
+                          @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize){
         User user = null;
+        System.out.println(pageNum);
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies!=null&&cookies.length!=0) {
             for (Cookie cookie : cookies) {
@@ -41,6 +46,8 @@ public class ProfileController {
                     user = userService.findByToken(token);
                     if (user != null) {
                         httpServletRequest.getSession().setAttribute("user", user);
+                        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
+                        model.addAttribute("pagination", paginationDTO);
                     }
                     break;
                 }

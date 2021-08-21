@@ -45,8 +45,8 @@ public class IndexController {
                     if (user != null) {
                         //设置用户session
                         httpServletRequest.getSession().setAttribute("user", user);
-                        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
-                        model.addAttribute("pagination", paginationDTO);
+//                        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
+//                        model.addAttribute("pagination", paginationDTO);
                     }
                     break;
                 }
