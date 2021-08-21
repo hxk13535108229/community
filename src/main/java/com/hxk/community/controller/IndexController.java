@@ -34,7 +34,7 @@ public class IndexController {
                           Model model,
                           @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
                           @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize
-                          ) {
+    ) {
 
         Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null && cookies.length != 0) {
@@ -43,8 +43,9 @@ public class IndexController {
                     String token = cookie.getValue();
                     User user = userService.findByToken(token);
                     if (user != null) {
+                        //设置用户session
                         httpServletRequest.getSession().setAttribute("user", user);
-                        PaginationDTO paginationDTO = questionService.list(pageNum, pageSize,token);
+                      PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
                         model.addAttribute("pagination", paginationDTO);
                     }
                     break;

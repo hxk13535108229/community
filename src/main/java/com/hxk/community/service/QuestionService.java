@@ -1,11 +1,13 @@
 package com.hxk.community.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hxk.community.dao.QuestionMapper;
 import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.dto.QuestionDTO;
-import com.hxk.community.dao.QuestionMapper;
-import com.hxk.community.dao.UserMapper;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,52 +16,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName QuestionService
+ * @ClassName QueService
  * @Description TODO
  * @Author OvO
- * @Date 2021-08-20 11:19
+ * @Date 2021-08-21 21:15
  * @Version 1.0
  **/
 @Service
 public class QuestionService {
+
     @Autowired
     private QuestionMapper questionMapper;
 
-    @Autowired
-    private UserMapper userMapper;
+    //统计问题总数
+    public Integer count() {
+        return questionMapper.count();
+    }
 
+    //添加问题
+    public void create(Question question) {
+        questionMapper.create(question);
+    }
 
-    public PaginationDTO list(Integer pageNum, Integer pageSize,String token) {
-        
-//逻辑 查出所有数据  匹配用户id查出对应的问题  统计问题总数  匹配成功分页显示
-        Integer totalCount=questionMapper.count();
+    //返回分页列表
+    public List<Question> list(@Param("currentPage") Integer currentPage, @Param("pageSize") Integer pageSize) {
+        return questionMapper.list(currentPage, pageSize);
+    }
+
+    //返回用户id绑定的问题
+    public List<Question> listByAccountId(@Param("account_id") String account_id) {
+        return questionMapper.listByAccountId(account_id);
+    }
+
+    public PaginationDTO getPaginationDTO(Integer pageNum, Integer pageSize, User user) {
+        //逻辑 查出所有数据  匹配用户id查出对应的问题  统计问题总数  匹配成功分页显示
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalPages;
-        if(totalCount%pageSize==0){
-            totalPages=totalCount/pageSize;
-        }else {
-            totalPages=totalCount/pageSize+1;
-        }
-        if(pageNum>=totalPages){
-            pageNum=totalPages;
-        }
-        if(pageNum<=0){
-            pageNum=1;
-        }
-        paginationDTO.setPaginationDTO(totalCount,pageNum,pageSize);
-        Integer currentPage=pageSize*(pageNum-1);
-        List<Question> questions = questionMapper.list(currentPage,pageSize);
-        List<QuestionDTO> questionDTOList=new ArrayList<>();
+        PageHelper.startPage(pageNum,pageSize);
+        //这里要分页
+        List<Question> questions = this.listByAccountId(user.getAccount_id());
+        PageInfo<Question> pageInfo = new PageInfo<>(questions);
+        paginationDTO.setHasPreviousPage(pageInfo.isHasPreviousPage());
+        paginationDTO.setHasNextPage(pageInfo.isHasNextPage());
+        paginationDTO.setFirstPage(pageInfo.isIsFirstPage());
+        paginationDTO.setLastPage(pageInfo.isIsLastPage());
+        paginationDTO.setTotalPages(pageInfo.getPages());
+        QuestionDTO questionDTO = new QuestionDTO();
+        List<QuestionDTO> questionDTOList =new ArrayList<>();
         for (Question question : questions) {
-            User user = userMapper.findById(question.getAccount_id(),token);
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question, questionDTO);//拷贝类
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestionDTOList(questionDTOList);
-
-
+        paginationDTO.setCurrentPage(pageInfo.getPageNum());
+        paginationDTO.setPages(paginationDTO.getPagesList());
         return paginationDTO;
     }
 }

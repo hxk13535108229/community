@@ -16,4 +16,7 @@ public interface QuestionMapper {
 
     //返回分页列表
     List<Question> list(@Param("currentPage") Integer currentPage, @Param("pageSize") Integer pageSize);
+
+    //返回用户id绑定的问题
+    List<Question> listByAccountId(@Param("account_id") String account_id);
 }

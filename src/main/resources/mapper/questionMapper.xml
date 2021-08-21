@@ -17,4 +17,9 @@
         select * from question limit #{currentPage},#{pageSize}
     </select>
 
+    <select id="listByAccountId" parameterType="string" resultType="com.hxk.community.entity.Question">
+        select *
+        from question where account_id =#{account_id}
+    </select>
+
 </mapper>
