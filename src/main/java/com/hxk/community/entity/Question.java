@@ -1,4 +1,4 @@
-package com.hxk.community.model;
+package com.hxk.community.entity;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.hxk.community.dto;
 
-import com.hxk.community.model.User;
+import com.hxk.community.entity.User;
 import lombok.Data;
 
 /**

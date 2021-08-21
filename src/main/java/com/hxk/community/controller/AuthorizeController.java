@@ -1,8 +1,8 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dto.*;
-import com.hxk.community.mapper.UserMapper;
-import com.hxk.community.model.User;
+import com.hxk.community.dao.UserMapper;
+import com.hxk.community.entity.User;
 import com.hxk.community.provider.GiteeProvider;
 import com.hxk.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;

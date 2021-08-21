@@ -2,10 +2,10 @@ package com.hxk.community.service;
 
 import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.dto.QuestionDTO;
-import com.hxk.community.mapper.QuestionMapper;
-import com.hxk.community.mapper.UserMapper;
-import com.hxk.community.model.Question;
-import com.hxk.community.model.User;
+import com.hxk.community.dao.QuestionMapper;
+import com.hxk.community.dao.UserMapper;
+import com.hxk.community.entity.Question;
+import com.hxk.community.entity.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class QuestionService {
     private UserMapper userMapper;
 
 
-    public PaginationDTO list(Integer pageNum, Integer pageSize) {
+    public PaginationDTO list(Integer pageNum, Integer pageSize,String token) {
 //逻辑 查出所有数据  匹配用户id查出对应的问题  统计问题总数  匹配成功分页显示
 
         Integer totalCount=questionMapper.count();
@@ -51,7 +51,7 @@ public class QuestionService {
         List<Question> questions = questionMapper.list(currentPage,pageSize);
         List<QuestionDTO> questionDTOList=new ArrayList<>();
         for (Question question : questions) {
-            User user = userMapper.findById(question.getAccount_id());
+            User user = userMapper.findById(question.getAccount_id(),token);
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);//拷贝类
             questionDTO.setUser(user);
