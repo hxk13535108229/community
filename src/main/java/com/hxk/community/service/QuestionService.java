@@ -28,23 +28,14 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    //统计问题总数
-    public Integer count() {
-        return questionMapper.count();
-    }
 
     //添加问题
     public void create(Question question) {
         questionMapper.create(question);
     }
 
-    //返回分页列表
-    public List<Question> list(@Param("currentPage") Integer currentPage, @Param("pageSize") Integer pageSize) {
-        return questionMapper.list(currentPage, pageSize);
-    }
-
     //返回用户id绑定的问题
-    public List<Question> listByAccountId(@Param("account_id") String account_id) {
+    public List<Question> listByAccountId( String account_id) {
         return questionMapper.listByAccountId(account_id);
     }
 
@@ -71,5 +62,13 @@ public class QuestionService {
         paginationDTO.setCurrentPage(pageInfo.getPageNum());
         paginationDTO.setPages(paginationDTO.getPagesList());
         return paginationDTO;
+    }
+
+    public QuestionDTO findByQuestionId( Integer id,User user){
+       Question question= questionMapper.findByQuestionId(id,user.getAccount_id());
+           QuestionDTO questionDTO = new QuestionDTO();
+           BeanUtils.copyProperties(question, questionDTO);
+           questionDTO.setUser(user);
+           return questionDTO;
     }
 }

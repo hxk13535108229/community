@@ -8,8 +8,6 @@ import java.util.List;
 
 @Repository
 public interface QuestionMapper {
-    //统计问题总数
-     Integer count();
 
      //添加问题
      void create(Question question);
@@ -19,4 +17,6 @@ public interface QuestionMapper {
 
     //返回用户id绑定的问题
     List<Question> listByAccountId(@Param("account_id") String account_id);
+
+    Question findByQuestionId(@Param("id") Integer id,@Param("account_id")String account_id);
 }

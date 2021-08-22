@@ -3,6 +3,7 @@ package com.hxk.community.controller;
 import com.hxk.community.dao.QuestionMapper;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
+import com.hxk.community.service.QuestionService;
 import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionService questionService;
 
 
     @GetMapping("/publish")
@@ -69,7 +70,7 @@ public class PublishController {
         question.setAccount_id(user.getAccount_id());
         question.setGmt_create(System.currentTimeMillis());
         question.setGmt_modify(question.getGmt_create());
-        questionMapper.create(question);
+        questionService.create(question);
         return "redirect:/";
     }
 }

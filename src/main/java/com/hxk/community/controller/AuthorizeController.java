@@ -8,6 +8,7 @@ import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,7 +77,7 @@ public class AuthorizeController {
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             user.setAvatar_url(gitUserDTO.getAvatar_url());
-            userService.insertUser(user);
+            userService.insertOrUpdateUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
@@ -105,11 +106,21 @@ public class AuthorizeController {
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modify(user.getGmt_create());
             user.setAvatar_url(gitUserDTO.getAvatar_url());
-            userService.insertUser(user);
+            userService.insertOrUpdateUser(user);
             httpServletResponse.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logOut(HttpServletRequest httpServletRequest,
+                         HttpServletResponse httpServletResponse){
+        httpServletRequest.getSession().removeAttribute("user");
+        Cookie token = new Cookie("token", null);
+        token.setMaxAge(0);
+        httpServletResponse.addCookie(token);
+        return "redirect:/";
     }
 }

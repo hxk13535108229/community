@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${section}"></title>
-    <link rel="stylesheet" href="css/community.css">
+    <title th:text="${sectionName}"></title>
+    <link rel="stylesheet" href="/css/community.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
           integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -32,13 +32,13 @@
             <div class="media" th:each="question :${pagination.questionDTOList}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded"
-                             th:src="${question.user.avatar_url}"
-                        >
+                        <img class="media-object img-rounded" th:src="${question.user.avatar_url}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/'+${question.id}}"  th:text="${question.getTitle()}"></a>
+                    </h4>
                     <span th:text="${question.getDescription()}"></span><br>
                     <span class="text-desc">
                     <span th:text="${question.getComment_count()}"></span>个回复·

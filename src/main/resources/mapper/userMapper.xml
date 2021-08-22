@@ -13,9 +13,15 @@
         select * from user where token= #{token}
     </select>
 
-    <select id="findById"  resultType="com.hxk.community.entity.User">
-        select * from user where account_id= #{account_id} and token=#{token}
+    <select id="findById" resultType="com.hxk.community.entity.User">
+        select *
+        from user where account_id=#{account_id};
     </select>
-
+    
+    <update id="update">
+        update user
+        set token = #{token}
+        where account_id=#{account_id};
+    </update>
 
 </mapper>

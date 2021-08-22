@@ -25,12 +25,26 @@ public class UserService {
     }
 
     //通过token返回用户
-    public User findByToken(@Param("token") String token) {
+    public User findByToken( String token) {
         return userMapper.findByToken(token);
     }
 
-    //通过token和accient_id返回用户
-    public User findById(@Param("account_id") String account_id, @Param("token") String token) {
-        return userMapper.findById(account_id, token);
+    //通过account_id查找用户
+    public User findById( String account_id){
+      return  userMapper.findById(account_id);
+    }
+
+    //添加用户或更新用户 每次登录只有token改变
+    public void insertOrUpdateUser(User user) {
+        String account_id = user.getAccount_id();
+        System.out.println(account_id);
+        User myUser = findById(account_id);
+        if(myUser!=null){
+            //更新
+            userMapper.update(user.getToken(),user.getAccount_id());
+        }else {
+            //插入
+            userMapper.insertUser(user);
+        }
     }
 }
