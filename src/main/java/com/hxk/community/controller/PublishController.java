@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -27,8 +25,6 @@ public class PublishController {
     @Autowired
     private QuestionMapper questionMapper;
 
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/publish")
     public String publish() {
@@ -61,23 +57,9 @@ public class PublishController {
             return "publish";
         }
 
-//验证登录了没有
-        User user = null;
-        Cookie[] cookies = httpServletRequest.getCookies();
-        if(cookies!=null&&cookies.length!=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userService.findByToken(token);
-                    if (user != null) {
-                        httpServletRequest.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
         if (user == null) {
-            model.addAttribute("error", "用户未登录");
+            model.addAttribute("error", "用户未登录,请登录再进行下一步操作");
             return "publish";
         }
         Question question = new Question();

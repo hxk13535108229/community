@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -36,23 +34,13 @@ public class ProfileController {
                           Model model,
                           @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
                           @RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize){
-        User user = null;
-        System.out.println(pageNum);
-        Cookie[] cookies = httpServletRequest.getCookies();
-        if(cookies!=null&&cookies.length!=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userService.findByToken(token);
-                    if (user != null) {
-                        httpServletRequest.getSession().setAttribute("user", user);
-                        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
-                        model.addAttribute("pagination", paginationDTO);
-                    }
-                    break;
-                }
-            }
+
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        if(user==null){
+            return "redirect:/"; //返回首页
         }
+        PaginationDTO paginationDTO=  questionService.getPaginationDTO(pageNum,pageSize,user);
+        model.addAttribute("pagination", paginationDTO);
        if("questions".equals(action)){
            model.addAttribute("section", "questions");
            model.addAttribute("sectionName", "我的提问");
