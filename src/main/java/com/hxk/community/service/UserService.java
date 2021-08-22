@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @ClassName UserService
- * @Description TODO
+ * @Description 用户业务类
  * @Author OvO
  * @Date 2021-08-21 21:15
  * @Version 1.0
@@ -19,10 +19,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    //添加用户
-    public void insertUser(User user) {
-        userMapper.insertUser(user);
-    }
 
     //通过token返回用户
     public User findByToken( String token) {

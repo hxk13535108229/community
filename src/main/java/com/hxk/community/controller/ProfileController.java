@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName ProfileController
- * @Description TODO
+ * @Description 我的提问展示
  * @Author OvO
  * @Date 2021-08-21 23:59
  * @Version 1.0
@@ -27,6 +27,9 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
+    /*
+    我的问题 问题列表
+     */
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
                           HttpServletRequest httpServletRequest,

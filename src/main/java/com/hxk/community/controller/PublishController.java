@@ -1,14 +1,15 @@
 package com.hxk.community.controller;
 
 import com.hxk.community.dao.QuestionMapper;
+import com.hxk.community.dto.QuestionDTO;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
 import com.hxk.community.service.QuestionService;
-import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
@@ -26,17 +27,36 @@ public class PublishController {
     @Autowired
     private QuestionService questionService;
 
+    /*
+    编辑问题
+     */
+    @GetMapping("/publish/{id}")
+    public String updatePublish(@PathVariable(name = "id")Integer id,
+                                HttpServletRequest httpServletRequest,
+                                Model model){
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        QuestionDTO questionDTO = questionService.findByQuestionId(id, user);
+        model.addAttribute("title", questionDTO.getTitle());
+        model.addAttribute("description", questionDTO.getDescription());
+        model.addAttribute("tag", questionDTO.getDescription());
+        model.addAttribute("id", id);//添加问题唯一标志
+        return "publish";
+    }
 
     @GetMapping("/publish")
     public String publish() {
         return "publish";
     }
 
+    /*
+    发布问题
+     */
     @PostMapping("/publish")
     public String doPublish(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
+            @RequestParam("id") Integer id,
             HttpServletRequest httpServletRequest,
             Model model
     ) {
@@ -70,7 +90,8 @@ public class PublishController {
         question.setAccount_id(user.getAccount_id());
         question.setGmt_create(System.currentTimeMillis());
         question.setGmt_modify(question.getGmt_create());
-        questionService.create(question);
+            question.setId(id);
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 }

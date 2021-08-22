@@ -50,6 +50,11 @@
             <nav  aria-label="Page navigation" th:if="${pagination.getTotalPages()!=0}">
                 <ul class="pagination">
                     <li>
+                        <a  aria-label="EndPage">
+                            <span aria-hidden="true" th:text="'总共'+${pagination.totalPages}+'页'"></span>
+                        </a>
+                    </li>
+                    <li>
                         <a th:unless="${pagination.isFirstPage()}"   th:href="@{'/profile/'+${section}(pageNum=${1})}" aria-label="FirstPage">
                             <span aria-hidden="true">&laquo;&laquo;</span>
                         </a>

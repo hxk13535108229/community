@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName QueService
- * @Description TODO
+ * @ClassName QuestionService
+ * @Description 问题业务类
  * @Author OvO
  * @Date 2021-08-21 21:15
  * @Version 1.0
@@ -29,10 +29,6 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
 
-    //添加问题
-    public void create(Question question) {
-        questionMapper.create(question);
-    }
 
     //返回用户id绑定的问题
     public List<Question> listByAccountId( String account_id) {
@@ -70,5 +66,15 @@ public class QuestionService {
            BeanUtils.copyProperties(question, questionDTO);
            questionDTO.setUser(user);
            return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+  if(question.getId()!=null){
+      //更新
+      questionMapper.update(question);
+  }else {
+      //添加
+      questionMapper.create(question);
+  }
     }
 }

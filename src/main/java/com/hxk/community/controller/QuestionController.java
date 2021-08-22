@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName QuestionController
- * @Description TODO
+ * @Description 问题详情
  * @Author OvO
  * @Date 2021-08-22 15:51
  * @Version 1.0
@@ -25,6 +25,9 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    /*
+    展示问题详情
+     */
     @GetMapping("/question/{id}")
     public String goQuestion(@PathVariable(name ="id" )Integer id,
                              HttpServletRequest httpServletRequest,

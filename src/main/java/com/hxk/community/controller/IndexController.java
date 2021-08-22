@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 
+    /*
+    首页
+     */
     @GetMapping("/")
     public String goIndex(
     ) {

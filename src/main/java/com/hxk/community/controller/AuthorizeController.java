@@ -57,6 +57,9 @@ public class AuthorizeController {
     @Autowired
     private UserService userService;
 
+    /*
+    github登录
+     */
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
                                    HttpServletRequest httpServletRequest,
@@ -85,6 +88,9 @@ public class AuthorizeController {
         }
     }
 
+    /*
+    gitee登录
+     */
     @RequestMapping("callbackToGitee")
     public String callbackToGitee(@RequestParam(name = "code") String code,
                                   HttpServletRequest httpServletRequest,
@@ -114,6 +120,9 @@ public class AuthorizeController {
         }
     }
 
+    /*
+    登出
+     */
     @GetMapping("/logout")
     public String logOut(HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse){

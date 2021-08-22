@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName SessionInterceptor
- * @Description TODO
+ * @Description Session拦截器
  * @Author OvO
  * @Date 2021-08-22 14:49
  * @Version 1.0

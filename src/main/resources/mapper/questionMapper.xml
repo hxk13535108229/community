@@ -21,7 +21,18 @@
 
     <select id="findByQuestionId" resultType="com.hxk.community.entity.Question">
         select *
-        from question where id = #{id} and account_id=#{account_id};
+        from question where id = #{id} and account_id=#{account_id}
     </select>
+
+    <update id="update" parameterType="com.hxk.community.entity.Question">
+        update question
+        set account_id=#{account_id},
+            title=#{title},
+            description=#{description},
+            gmt_create=#{gmt_create},
+            gmt_modify=#{gmt_modify},
+            tag=#{tag}
+        where id=#{id}
+    </update>
 
 </mapper>
