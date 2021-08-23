@@ -23,4 +23,7 @@ public interface QuestionMapper {
 
     //更新问题
     void update(Question question);
+
+    //通过id
+    Question findById(@Param("id") Integer id);
 }

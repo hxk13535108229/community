@@ -82,4 +82,10 @@ public class QuestionService {
       questionMapper.create(question);
   }
     }
+
+    public void createViewCount(Integer id) {
+        Question updateQuestion = questionMapper.findById(id);
+        updateQuestion.setView_count(updateQuestion.getView_count()+1);//viewCount的Sql自己加一 不覆盖
+        questionMapper.update(updateQuestion);
+    }
 }

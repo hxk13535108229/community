@@ -34,6 +34,8 @@ public class QuestionController {
                              Model model){
         //获取当前登录用户
         User user = (User)httpServletRequest.getSession().getAttribute("user");
+        //更新浏览数
+        questionService.createViewCount(id);
         QuestionDTO questionDTO = questionService.findByQuestionId(id, user);
         model.addAttribute("question", questionDTO);
         return "question";

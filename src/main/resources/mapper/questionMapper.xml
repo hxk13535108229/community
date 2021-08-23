@@ -31,8 +31,16 @@
             description=#{description},
             gmt_create=#{gmt_create},
             gmt_modify=#{gmt_modify},
+            <if test="view_count != null">view_count=#{view_count},</if>
+        <if test="comment_count != null">comment_count=#{comment_count},</if>
+        <if test="like_count != null">like_count=like_count+1,</if>
             tag=#{tag}
         where id=#{id}
     </update>
+
+    <select id="findById" resultType="com.hxk.community.entity.Question">
+        select *
+        from question where id =#{id};
+    </select>
 
 </mapper>
