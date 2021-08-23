@@ -32,7 +32,7 @@ public class ProfileController {
     /*
     我的问题 问题列表
      */
-    @GetMapping("/profile/{action}")
+        @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
                           HttpServletRequest httpServletRequest,
                           Model model,

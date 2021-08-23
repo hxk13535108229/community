@@ -24,4 +24,9 @@
         where account_id=#{account_id};
     </update>
 
+    <select id="getUser" resultType="com.hxk.community.entity.User">
+        select *
+        from user where account_id=#{account_id};
+    </select>
+
 </mapper>

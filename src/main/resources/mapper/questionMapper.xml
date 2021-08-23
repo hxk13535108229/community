@@ -11,7 +11,7 @@
     </insert>
 
     <select id="list" resultType="com.hxk.community.entity.Question">
-        select * from question limit #{currentPage},#{pageSize}
+        select * from question
     </select>
 
     <select id="listByAccountId" parameterType="string" resultType="com.hxk.community.entity.Question">
@@ -42,5 +42,7 @@
         select *
         from question where id =#{id};
     </select>
+
+
 
 </mapper>

@@ -18,4 +18,7 @@ public interface UserMapper {
 
     //更新用户
     void update(@Param("token") String newtoken,@Param("account_id") String account_id);
+
+    //通过accountId找到用户
+    User getUser(@Param("account_id") String account_id);
 }

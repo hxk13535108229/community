@@ -1,6 +1,7 @@
 package com.hxk.community.dao;
 
 import com.hxk.community.entity.Question;
+import com.hxk.community.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +27,6 @@ public interface QuestionMapper {
 
     //通过id
     Question findById(@Param("id") Integer id);
+
+
 }

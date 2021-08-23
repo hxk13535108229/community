@@ -1,5 +1,4 @@
 ## 资料
-
 [Creating an OAuth App](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app)
 
 [spring文档](https://spring.io/guides)
@@ -13,3 +12,10 @@
 [thymeleaf文档](https://www.thymeleaf.org/)
 
 [PageHelper官网](https://pagehelper.github.io/)
+
+## 工具
+[Git](https://git-scm.com/)
+
+[Postman](https://www.postman.com/downloads/)
+
+[Lombok](https://projectlombok.org/)
