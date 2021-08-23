@@ -38,8 +38,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}"  th:text="${question.getTitle()}"></a>
-                    </h4>
-                    <span th:text="${question.getDescription()}"></span><br>
+                    </h4><br>
                     <span class="text-desc">
                     <span th:text="${question.getComment_count()}"></span>个回复·
                     <span th:text="${question.getView_count()}"></span>个浏览·

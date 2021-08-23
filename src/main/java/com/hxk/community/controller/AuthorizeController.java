@@ -62,7 +62,6 @@ public class AuthorizeController {
      */
     @RequestMapping("/callbackToGithub")
     public String callbackToGithub(@RequestParam(name = "code") String code,
-                                   HttpServletRequest httpServletRequest,
                                    HttpServletResponse httpServletResponse) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);

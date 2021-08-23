@@ -2,6 +2,8 @@ package com.hxk.community.controller;
 
 import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.entity.User;
+import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.exception.CustomizeException;
 import com.hxk.community.service.QuestionService;
 import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,10 @@ public class ProfileController {
        }else if("replies".equals(action)){
            model.addAttribute("section", "replies");
            model.addAttribute("sectionName", "最新回复");
+       }else {//暂时这样 可能还有扩展
+           throw new CustomizeException(CustomizeErrorCode.WEBPAGE_NOT_FOUNT);
        }
+
         return "profile";
     }
 }

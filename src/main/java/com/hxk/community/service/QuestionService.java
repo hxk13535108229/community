@@ -7,6 +7,8 @@ import com.hxk.community.dto.PaginationDTO;
 import com.hxk.community.dto.QuestionDTO;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
+import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.exception.CustomizeException;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +64,9 @@ public class QuestionService {
 
     public QuestionDTO findByQuestionId( Integer id,User user){
        Question question= questionMapper.findByQuestionId(id,user.getAccount_id());
+       if(question==null){
+           throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUNT);
+       }
            QuestionDTO questionDTO = new QuestionDTO();
            BeanUtils.copyProperties(question, questionDTO);
            questionDTO.setUser(user);

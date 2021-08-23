@@ -1,6 +1,5 @@
 package com.hxk.community.controller;
 
-import com.hxk.community.dao.QuestionMapper;
 import com.hxk.community.dto.QuestionDTO;
 import com.hxk.community.entity.Question;
 import com.hxk.community.entity.User;
