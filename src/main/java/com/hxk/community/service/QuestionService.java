@@ -67,7 +67,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO findByQuestionId( Integer id,User user){
+    public QuestionDTO findByQuestionId( Long id,User user){
        Question question= questionMapper.findByQuestionId(id,user.getAccount_id());
        if(question==null){
            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -88,9 +88,11 @@ public class QuestionService {
   }
     }
 
-    public void createViewCount(Integer id) {
+    public void createViewCount(Long id) {
         Question updateQuestion = questionMapper.findById(id);
         updateQuestion.setView_count(updateQuestion.getView_count()+1);//viewCount的Sql自己加一 不覆盖
+        updateQuestion.setLike_count(null);
+        updateQuestion.setComment_count(null);
         questionMapper.update(updateQuestion);
     }
 
@@ -119,7 +121,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO findByQuestionId(Integer id) {
+    public QuestionDTO findByQuestionId(Long id) {
         Question question= questionMapper.findById(id);
         if(question==null){
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);

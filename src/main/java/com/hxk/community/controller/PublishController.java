@@ -30,7 +30,7 @@ public class PublishController {
     编辑问题
      */
     @GetMapping("/publish/{id}")
-    public String updatePublish(@PathVariable(name = "id")Integer id,
+    public String updatePublish(@PathVariable(name = "id")Long id,
                                 HttpServletRequest httpServletRequest,
                                 Model model){
         User user = (User)httpServletRequest.getSession().getAttribute("user");
@@ -55,7 +55,7 @@ public class PublishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") Integer id,
+            @RequestParam("id") Long id,
             HttpServletRequest httpServletRequest,
             Model model
     ) {

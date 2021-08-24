@@ -5,13 +5,11 @@ import com.hxk.community.entity.User;
 import com.hxk.community.exception.CustomizeErrorCode;
 import com.hxk.community.exception.CustomizeException;
 import com.hxk.community.service.QuestionService;
-import com.hxk.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 

@@ -17,5 +17,5 @@ public class User {
     private Long gmt_create;        //创建时间
     private Long gmt_modify;        //修改时间
     private String avatar_url;      //用户图标url
-    private Integer id;
+    private Long id;
 }

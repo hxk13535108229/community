@@ -1,5 +1,8 @@
 package com.hxk.community.advice;
 
+import com.alibaba.fastjson.JSON;
+import com.hxk.community.dto.ResultDTO;
+import com.hxk.community.exception.CustomizeErrorCode;
 import com.hxk.community.exception.CustomizeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -9,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @ClassName CustomizeExceptionHandler
@@ -21,14 +27,34 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomizeExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ModelAndView handle(Throwable ex, Model model) {
-        if(ex instanceof CustomizeException){
-            model.addAttribute("message", ex.getMessage());
+    public ModelAndView handle(Throwable ex, Model model, HttpServletRequest httpServletRequest,
+                               HttpServletResponse httpServletResponse) {
+        String contentType = httpServletRequest.getContentType();
+        if("application/json".equals(contentType)){
+            ResultDTO resultDTO;
+            if(ex instanceof CustomizeException){
+                resultDTO=ResultDTO.errorOf((CustomizeException)ex);
+            }else {
+                resultDTO=ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
+            }
+            PrintWriter writer;
+            try {
+                httpServletResponse.setCharacterEncoding("utf-8");
+                httpServletResponse.setContentType("application/json");
+                writer = httpServletResponse.getWriter();
+                writer.write(JSON.toJSONString(resultDTO));
+                writer.close();
+            } catch (IOException e) {
+               // e.printStackTrace(); 后面再处理
+            }
+
         }else {
-            model.addAttribute("message", "服务器冒烟了!!!");
+            if(ex instanceof CustomizeException){
+                model.addAttribute("message", ex.getMessage());
+            }else {
+                model.addAttribute("message", CustomizeErrorCode.SYS_ERROR.getMessage());
+            }
         }
         return new ModelAndView("error");
     }
-
-
 }

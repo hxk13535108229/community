@@ -1,7 +1,5 @@
 package com.hxk.community.controller;
 
-import com.hxk.community.exception.CustomizeErrorCode;
-import com.hxk.community.exception.CustomizeException;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

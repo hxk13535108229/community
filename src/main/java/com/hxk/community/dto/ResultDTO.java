@@ -1,6 +1,7 @@
 package com.hxk.community.dto;
 
 import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.exception.CustomizeException;
 import lombok.Data;
 
 /**
@@ -33,5 +34,9 @@ public class ResultDTO {
         resultDTO.setCode(200);
         resultDTO.setMessage("成功");
         return resultDTO;
+    }
+
+    public static ResultDTO errorOf(CustomizeException ex) {
+        return errorOf(ex.getCode(), ex.getMessage());
     }
 }

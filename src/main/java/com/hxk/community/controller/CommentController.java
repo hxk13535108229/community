@@ -5,7 +5,6 @@ import com.hxk.community.dto.ResultDTO;
 import com.hxk.community.entity.Comment;
 import com.hxk.community.entity.User;
 import com.hxk.community.exception.CustomizeErrorCode;
-import com.hxk.community.exception.CustomizeException;
 import com.hxk.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

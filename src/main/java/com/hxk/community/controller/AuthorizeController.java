@@ -92,7 +92,6 @@ public class AuthorizeController {
      */
     @RequestMapping("callbackToGitee")
     public String callbackToGitee(@RequestParam(name = "code") String code,
-                                  HttpServletRequest httpServletRequest,
                                   HttpServletResponse httpServletResponse) {
         AccessTokenDTOGitee accessTokenDTOGitee = new AccessTokenDTOGitee();
         accessTokenDTOGitee.setRedirect_uri(gitee_Redirect_uri);

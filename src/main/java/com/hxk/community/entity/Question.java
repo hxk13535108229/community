@@ -11,7 +11,7 @@ import lombok.Data;
  **/
 @Data
 public class Question {
-    private Integer id;
+    private Long id;
     private String title;           //标题
     private String description;     //描述
     private String tag;             //标签
