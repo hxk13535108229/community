@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -30,10 +31,10 @@ public class PublishController {
     编辑问题
      */
     @GetMapping("/publish/{id}")
-    public String updatePublish(@PathVariable(name = "id")Long id,
+    public String updatePublish(@PathVariable(name = "id") Long id,
                                 HttpServletRequest httpServletRequest,
-                                Model model){
-        User user = (User)httpServletRequest.getSession().getAttribute("user");
+                                Model model) {
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
         QuestionDTO questionDTO = questionService.findByQuestionId(id, user);
         model.addAttribute("title", questionDTO.getTitle());
         model.addAttribute("description", questionDTO.getDescription());
@@ -77,7 +78,7 @@ public class PublishController {
             return "publish";
         }
 
-        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登录,请登录再进行下一步操作");
             return "publish";
@@ -89,7 +90,7 @@ public class PublishController {
         question.setAccount_id(user.getAccount_id());
         question.setGmt_create(System.currentTimeMillis());
         question.setGmt_modify(question.getGmt_create());
-            question.setId(id);
+        question.setId(id);
         questionService.createOrUpdate(question);
         return "redirect:/";
     }

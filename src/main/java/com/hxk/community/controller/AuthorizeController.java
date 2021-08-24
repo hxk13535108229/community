@@ -123,7 +123,7 @@ public class AuthorizeController {
      */
     @GetMapping("/logout")
     public String logOut(HttpServletRequest httpServletRequest,
-                         HttpServletResponse httpServletResponse){
+                         HttpServletResponse httpServletResponse) {
         httpServletRequest.getSession().removeAttribute("user");
         Cookie token = new Cookie("token", null);
         token.setMaxAge(0);

@@ -7,7 +7,7 @@ package com.hxk.community.exception;
  * @Date 2021-08-23 17:21
  * @Version 1.0
  **/
-public class CustomizeException extends RuntimeException{
+public class CustomizeException extends RuntimeException {
 
     private String message;
     private Integer code;
@@ -17,8 +17,8 @@ public class CustomizeException extends RuntimeException{
     }
 
     public CustomizeException(ICustomizeErrorCode errorCode) {
-        this.message=errorCode.getMessage();
-        this.code=errorCode.getCode();
+        this.message = errorCode.getMessage();
+        this.code = errorCode.getCode();
     }
 
     @Override

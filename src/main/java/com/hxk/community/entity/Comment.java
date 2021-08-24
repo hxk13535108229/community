@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @ClassName Comment
- * @Description TODO
+ * @Description 评论实体类
  * @Author OvO
  * @Date 2021-08-24 16:15
  * @Version 1.0

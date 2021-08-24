@@ -1,6 +1,6 @@
 package com.hxk.community.dto;
 
-import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.enums.CustomizeErrorCode;
 import com.hxk.community.exception.CustomizeException;
 import lombok.Data;
 

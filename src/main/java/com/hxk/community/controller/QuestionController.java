@@ -28,12 +28,12 @@ public class QuestionController {
     展示问题详情
      */
     @GetMapping("/question/{id}")
-    public String goQuestion(@PathVariable(name ="id" )Long id,
+    public String goQuestion(@PathVariable(name = "id") Long id,
                              HttpServletRequest httpServletRequest,
-                             Model model){
+                             Model model) {
         //获取当前登录用户
-        User user = (User)httpServletRequest.getSession().getAttribute("user");
-        if(user==null){
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
+        if (user == null) {
             return "redirect:/";
         }
         //更新浏览数

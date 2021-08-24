@@ -5,14 +5,14 @@ import com.hxk.community.dao.QuestionMapper;
 import com.hxk.community.entity.Comment;
 import com.hxk.community.entity.Question;
 import com.hxk.community.enums.CommentTypeEnum;
-import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.enums.CustomizeErrorCode;
 import com.hxk.community.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @ClassName CommentService
- * @Description TODO
+ * @Description 评论业务类
  * @Author OvO
  * @Date 2021-08-24 16:33
  * @Version 1.0

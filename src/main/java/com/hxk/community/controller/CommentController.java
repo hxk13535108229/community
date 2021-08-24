@@ -4,7 +4,7 @@ import com.hxk.community.dto.CommentDTO;
 import com.hxk.community.dto.ResultDTO;
 import com.hxk.community.entity.Comment;
 import com.hxk.community.entity.User;
-import com.hxk.community.exception.CustomizeErrorCode;
+import com.hxk.community.enums.CustomizeErrorCode;
 import com.hxk.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @ClassName CommentController
@@ -37,7 +35,7 @@ public class CommentController {
     public Object post(@RequestBody CommentDTO commentDTO,
                        HttpServletRequest httpServletRequest) {
         User user = (User) httpServletRequest.getSession().getAttribute("user");
-        if(user==null){
+        if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }
         Comment comment = new Comment();

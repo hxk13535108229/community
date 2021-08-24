@@ -10,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * @ClassName CustomerErrorController
@@ -33,10 +30,10 @@ public class CustomerErrorController implements ErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, Model model) {
         HttpStatus status = getStatus(request);
         if (status.is4xxClientError()) {
-            model.addAttribute("message","请求出错了噢!!!");
+            model.addAttribute("message", "请求出错了噢!!!");
         }
         if (status.is5xxServerError()) {
-            model.addAttribute("message","服务器冒烟了噢!!!");
+            model.addAttribute("message", "服务器冒烟了噢!!!");
         }
         return new ModelAndView("error");
     }

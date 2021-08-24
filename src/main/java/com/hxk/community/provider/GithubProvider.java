@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * @ClassName GithubProvider
- * @Description TODO
+ * @Description Github OpenAPI
  * @Author OvO
  * @Date 2021-08-19 17:07
  * @Version 1.0

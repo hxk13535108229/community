@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * @ClassName GiteeProvider
- * @Description TODO
+ * @Description Gitee OpenAPI
  * @Author OvO
  * @Date 2021-08-19 18:39
  * @Version 1.0
