@@ -52,7 +52,7 @@ public class ProfileController {
            model.addAttribute("section", "replies");
            model.addAttribute("sectionName", "最新回复");
        }else {//暂时这样 可能还有扩展
-           throw new CustomizeException(CustomizeErrorCode.WEBPAGE_NOT_FOUNT);
+           throw new CustomizeException(CustomizeErrorCode.WEBPAGE_NOT_FOUND);
        }
 
         return "profile";

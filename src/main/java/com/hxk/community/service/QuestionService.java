@@ -70,7 +70,7 @@ public class QuestionService {
     public QuestionDTO findByQuestionId( Integer id,User user){
        Question question= questionMapper.findByQuestionId(id,user.getAccount_id());
        if(question==null){
-           throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUNT);
+           throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
        }
            QuestionDTO questionDTO = new QuestionDTO();
            BeanUtils.copyProperties(question, questionDTO);
@@ -122,7 +122,7 @@ public class QuestionService {
     public QuestionDTO findByQuestionId(Integer id) {
         Question question= questionMapper.findById(id);
         if(question==null){
-            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUNT);
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);

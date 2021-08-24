@@ -10,9 +10,15 @@ package com.hxk.community.exception;
 public class CustomizeException extends RuntimeException{
 
     private String message;
+    private Integer code;
+
+    public Integer getCode() {
+        return code;
+    }
 
     public CustomizeException(ICustomizeErrorCode errorCode) {
-        this.message = errorCode.getErrorCode();
+        this.message=errorCode.getMessage();
+        this.code=errorCode.getCode();
     }
 
     @Override

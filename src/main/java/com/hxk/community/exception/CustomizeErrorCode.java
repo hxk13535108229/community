@@ -1,21 +1,26 @@
 package com.hxk.community.exception;
 
 public enum CustomizeErrorCode implements ICustomizeErrorCode{
-    QUESTION_NOT_FOUNT("问题已删除或者不存在了噢!"),
-    WEBPAGE_NOT_FOUNT("该页面不存在噢!");
+    QUESTION_NOT_FOUND(2001,"问题已删除或者不存在了噢!"),
+    WEBPAGE_NOT_FOUND(2002,"该页面不存在噢!"),
+    TARGET_PARAM_NOT_FOUND(2003,"未选中任何问题或评论进行回复"),
+    NOT_LOGIN(2004, "未登录不能进行评论噢！");
 
     private String message;
+    private Integer code;
 
+    CustomizeErrorCode(Integer code, String message) {
+        this.message = message;
+        this.code = code;
+    }
+
+    @Override
     public String getMessage() {
         return message;
     }
 
-    CustomizeErrorCode(String message) {
-        this.message = message;
-    }
-
     @Override
-    public String getErrorCode() {
-        return getMessage();
+    public Integer getCode() {
+        return code;
     }
 }

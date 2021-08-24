@@ -9,5 +9,6 @@ package com.hxk.community.exception;
  **/
 public interface ICustomizeErrorCode {
 
-    String getErrorCode();
+    String getMessage();
+    Integer getCode();
 }
