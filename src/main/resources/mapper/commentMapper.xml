@@ -14,4 +14,9 @@
         from comment where id=#{parent_id};
     </select>
 
+    <select id="selFromPIdList" resultType="com.hxk.community.entity.Comment">
+        select *
+        from comment where parent_id=#{parent_id} order by gmt_create desc ;
+    </select>
+
 </mapper>

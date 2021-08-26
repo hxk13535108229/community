@@ -9,6 +9,15 @@
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
+<script type="application/javascript">
+    window.onload=function () {
+        var item = window.location.getItem("closable");
+        if (item == true) {
+            window.close();
+            window.location.removeItem("closable");
+        }
+    }
+</script>
 <body>
 <div th:insert="navigation :: nav"></div>
 <div class="container-fluid" th:if="${session.user!=null}">

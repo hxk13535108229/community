@@ -12,7 +12,15 @@ function postComent() {
             "type": 1
         }),
         success: function (response) {
-           console.log(response);
+           if(response.code==200){
+               //异步刷新
+               window.location.reload();
+           }else {
+                  var isAccepted=confirm(response.message);
+                  if(isAccepted){
+                      window.localStorage.setItem("closable",true);
+                  }
+           }
         },
         dataType: "json"
     });

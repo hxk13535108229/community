@@ -12,7 +12,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     NOT_LOGIN(2004, "未登录不能进行评论噢！"),
     SYS_ERROR(2005, "服务器冒烟了！"),
     COMMENT_TYPE_ERROR(2006, "评论类型错误或者不存在！"),
-    COMMEMT_NOT_FOUND(2007, "要恢复的评论不存在或者已经被删除了");
+    COMMEMT_NOT_FOUND(2007, "要恢复的评论不存在或者已经被删除了"),
+    CONTENT_IS_EMPTY(2008,"输入内容为空");
 
 
     private String message;
