@@ -9,6 +9,7 @@ import com.hxk.community.enums.CustomizeErrorCode;
 import com.hxk.community.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ClassName CommentService
@@ -26,7 +27,10 @@ public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+    //开启事务
+    @Transactional
     public void insert(Comment comment) {
+        System.out.println(comment.toString());
         //父类id不存在
         if (comment.getParent_id() == null || comment.getParent_id() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
